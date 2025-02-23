@@ -33,6 +33,6 @@ function searchVideos(query) {
 function loadVideo(encodedVideoId) {
     const videoId = atob(encodedVideoId); // Decode Base64
     document.getElementById("content").innerHTML = `
-        <iframe class="video-frame" src="https://piped.video/embed/${videoId}" allowfullscreen></iframe>
+        <iframe class="video-frame" src="https://invidious.snopyta.org/embed/${videoId}" allowfullscreen></iframe>
     `;
 }
