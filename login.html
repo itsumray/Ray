@@ -20,7 +20,7 @@
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
         }
-        input[type="password"] {
+        input[type="password"], input[type="text"] {
             padding: 10px;
             font-size: 16px;
             margin-top: 10px;
@@ -44,6 +44,13 @@
         p {
             color: red;
         }
+        .show-password {
+            background: none;
+            border: none;
+            color: #4CAF50;
+            cursor: pointer;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -52,9 +59,39 @@
         <h2>Enter Password to Access the Website</h2>
         <input type="password" id="password" placeholder="Enter password" />
         <button onclick="checkPassword()">Submit</button>
+        <button type="button" class="show-password" onclick="togglePassword()">Show Password</button>
         <p id="error-message"></p>
     </div>
 
     <script>
-        const correctPasswordBase64 = "cmF5"; // Base64 encoded password for "ray"
-        const redirectUrl
+        const correctPasswordBase64 = "cmF5"; // The Base64 encoded password for "ray"
+        const redirectUrl = "https://itsumray.github.io/Ray/"; // Correct URL to your website
+
+        function checkPassword() {
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+
+            // Directly compare the entered password with the Base64 encoded password
+            if (password === correctPasswordBase64) {
+                window.location.href = redirectUrl; // Redirect to your website if the password is correct
+            } else {
+                errorMessage.textContent = "Incorrect password. Please try again."; // Show error message
+            }
+        }
+
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const currentType = passwordField.type;
+
+            // Toggle the password visibility
+            if (currentType === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+
+</body>
+</html>
+
