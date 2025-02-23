@@ -47,10 +47,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-#results {
-    margin-top: 20px;
-}
-
 .video-item {
     background: #1e1e1e;
     padding: 10px;
@@ -75,10 +71,10 @@ button:hover {
     background: #666;
 }
 
-/* FIX: Make the video fully visible */
+/* Fullscreen Video */
 .video-frame {
     width: 100%;
-    height: 400px; /* Adjust for bigger size */
+    height: 80vh;
     border: none;
     border-radius: 10px;
 }
