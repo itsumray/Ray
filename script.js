@@ -16,7 +16,7 @@ function searchYouTube(query) {
 
             data.items.forEach(item => {
                 const videoId = item.id.videoId;
-                const encodedVideoId = btoa(videoId); // Encode in Base64
+                const encodedVideoId = btoa(videoId); // Encode video ID
 
                 const videoDiv = document.createElement("div");
                 videoDiv.innerHTML = `
@@ -32,7 +32,8 @@ function searchYouTube(query) {
 function loadVideo(encodedVideoId) {
     const videoId = atob(encodedVideoId); // Decode Base64
     document.getElementById("videoContainer").innerHTML = `
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://piped.video/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
     `;
 }
+
 
