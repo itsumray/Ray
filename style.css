@@ -1,20 +1,37 @@
+/* Dark mode */
 body {
     font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #f1f1f1;
     text-align: center;
-    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
 }
 
 h1 {
-    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 form {
-    margin: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 input {
     padding: 10px;
-    width: 300px;
+    width: 70%;
+    border: none;
+    border-radius: 5px;
+    background: #1e1e1e;
+    color: #fff;
 }
 
 button {
@@ -22,6 +39,7 @@ button {
     background-color: #007bff;
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -33,7 +51,32 @@ button:hover {
     margin-top: 20px;
 }
 
+.video-item {
+    background: #1e1e1e;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.video-item h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.video-item button {
+    background: #444;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 3px;
+}
+
+.video-item button:hover {
+    background: #666;
+}
+
 #videoContainer {
     margin-top: 20px;
 }
+
 
