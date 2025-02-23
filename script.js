@@ -1,45 +1,38 @@
-// Your YouTube API key
-const API_KEY = 'AIzaSyC_O58TFr5rI-UibHnTS-oZoRzNGONQGAw';  // Your API Key
-
-// Search button click event
-document.getElementById('searchBtn').addEventListener('click', function() {
-    let query = document.getElementById('searchQuery').value;
-    if (query) {
-        searchVideos(query);
-    }
+document.getElementById("searchForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const query = document.getElementById("searchQuery").value;
+    searchYouTube(query);
 });
 
-// Function to search YouTube videos
-function searchVideos(query) {
-    const videoResults = document.getElementById('videoResults');
-    videoResults.innerHTML = '';  // Clear previous results
+function searchYouTube(query) {
+    const apiKey = "AIzaSyC_O58TFr5rI-UibHnTS-oZoRzNGONQGAw";
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&key=${apiKey}`;
 
-    // Make a request to the YouTube API
-    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=${API_KEY}`)
+    fetch(url)
         .then(response => response.json())
         .then(data => {
-            // Loop through the response and display the videos
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
+
             data.items.forEach(item => {
                 const videoId = item.id.videoId;
-                const title = item.snippet.title;
-                const description = item.snippet.description;
-                const thumbnail = item.snippet.thumbnails.high.url;
+                const encodedVideoId = btoa(videoId); // Encode in Base64
 
-                // Create an iframe for each video
-                const videoElement = document.createElement('div');
-                videoElement.classList.add('video');
-
-                videoElement.innerHTML = `
-                    <h3>${title}</h3>
-                    <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p>${description}</p>
+                const videoDiv = document.createElement("div");
+                videoDiv.innerHTML = `
+                    <h3>${item.snippet.title}</h3>
+                    <button onclick="loadVideo('${encodedVideoId}')">Watch Video</button>
                 `;
-
-                // Append the video element to the results container
-                videoResults.appendChild(videoElement);
+                resultsDiv.appendChild(videoDiv);
             });
         })
-        .catch(error => {
-            console.log('Error fetching YouTube videos:', error);
-        });
+        .catch(error => console.error("Error fetching YouTube data:", error));
 }
+
+function loadVideo(encodedVideoId) {
+    const videoId = atob(encodedVideoId); // Decode Base64
+    document.getElementById("videoContainer").innerHTML = `
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+    `;
+}
+
