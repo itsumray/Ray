@@ -47,26 +47,29 @@
     <script>
         function searchVideos() {
             const query = document.getElementById("searchQuery").value;
-            const contentDiv = document.getElementById("content");
-            contentDiv.innerHTML = ""; // Clear previous content
+            const apiKey = "YOUR_YOUTUBE_API_KEY";  // Replace with your YouTube API key
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&key=${apiKey}`;
 
-            // Example list of video titles for the demonstration
-            const videos = [
-                { title: "Example Video 1", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-                { title: "Example Video 2", url: "https://www.youtube.com/embed/tgbNymZ7vqY" },
-                { title: "Example Video 3", url: "https://www.youtube.com/embed/5qap5aO4i9A" }
-            ];
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const contentDiv = document.getElementById("content");
+                    contentDiv.innerHTML = "";  // Clear previous content
 
-            videos.forEach((video) => {
-                const videoDiv = document.createElement("div");
-                videoDiv.className = "video-item";
-                videoDiv.innerHTML = `
-                    <h3>${video.title}</h3>
-                    <iframe width="560" height="315" src="${video.url}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                `;
-                contentDiv.appendChild(videoDiv);
-            });
+                    data.items.forEach(item => {
+                        const videoId = item.id.videoId;
+                        const videoDiv = document.createElement("div");
+                        videoDiv.className = "video-item";
+                        videoDiv.innerHTML = `
+                            <h3>${item.snippet.title}</h3>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        `;
+                        contentDiv.appendChild(videoDiv);
+                    });
+                })
+                .catch(error => console.error("Error fetching YouTube data:", error));
         }
     </script>
+
 </body>
 </html>
