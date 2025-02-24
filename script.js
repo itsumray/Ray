@@ -16,23 +16,14 @@ function searchVideos(query) {
 
             data.items.forEach(item => {
                 const videoId = item.id.videoId;
-                const encodedVideoId = btoa(videoId); // Base64 encode
-
                 const videoDiv = document.createElement("div");
                 videoDiv.className = "video-item";
                 videoDiv.innerHTML = `
                     <h3>${item.snippet.title}</h3>
-                    <button onclick="loadVideo('${encodedVideoId}')">▶ Watch</button>
+                    <iframe width="560" height="315" src="https://www.vidproxy.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 `;
                 contentDiv.appendChild(videoDiv);
             });
         })
         .catch(error => console.error("Error fetching YouTube data:", error));
-}
-
-function loadVideo(encodedVideoId) {
-    const videoId = atob(encodedVideoId); // Decode Base64
-    document.getElementById("content").innerHTML = `
-        <iframe class="video-frame" src="https://invidious.snopyta.org/embed/${videoId}" allowfullscreen></iframe>
-    `;
 }
