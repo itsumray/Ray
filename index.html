@@ -60,10 +60,10 @@
                         const videoId = item.id.videoId;
                         const videoDiv = document.createElement("div");
                         videoDiv.className = "video-item";
-                        // Direct YouTube embedding without redirection
+                        // Direct YouTube embedding with autoplay to avoid popups
                         videoDiv.innerHTML = `
                             <h3>${item.snippet.title}</h3>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         `;
                         contentDiv.appendChild(videoDiv);
                     });
